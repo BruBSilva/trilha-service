@@ -1,0 +1,33 @@
+@startuml
+
+' Classe Categoria
+class Categoria {
+  -id: int
+  -nome: String
+  -descricao: String
+}
+
+' Classe Trilha
+class Trilha {
+  -id: int
+  -nome: String
+  -descricao: String
+  -categoria: Categoria
+  -modulos: ArrayList<Modulo>
+}
+
+' Classe Modulo
+class Modulo {
+  -id: int
+  -titulo: String
+  -trilha: Trilha
+  -ordem: int
+  -conteudo: String
+}
+
+' Relacionamentos
+Trilha "1" --> "1" Categoria : pertence >
+Trilha "1" --> "0..*" Modulo : contém >
+Modulo "1" --> "1" Trilha : pertence >
+
+@enduml
