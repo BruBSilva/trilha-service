@@ -1,0 +1,58 @@
+package br.edu.ifg.trilhadeaprendizagemapims.trilha.services;
+
+import br.edu.ifg.trilhadeaprendizagemapims.trilha.dto.ConquistaDTO;
+import br.edu.ifg.trilhadeaprendizagemapims.trilha.dto.TrilhaDTO;
+import br.edu.ifg.trilhadeaprendizagemapims.trilha.model.ECategoria;
+import br.edu.ifg.trilhadeaprendizagemapims.trilha.model.EConquista;
+import br.edu.ifg.trilhadeaprendizagemapims.trilha.model.ETrilha;
+import br.edu.ifg.trilhadeaprendizagemapims.trilha.repository.CategoriaRepository;
+import br.edu.ifg.trilhadeaprendizagemapims.trilha.repository.ConquistaRepository;
+import br.edu.ifg.trilhadeaprendizagemapims.trilha.repository.TrilhaRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class TrilhaService {
+
+    @Autowired
+    TrilhaRepository trilhaRepository;
+
+    @Autowired
+    private CategoriaRepository categoriaRepository;
+
+    @Autowired
+    private ConquistaRepository conquistaRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    public Page<TrilhaDTO> listarTrilhas(Pageable pageable) {
+        return trilhaRepository.findAll(pageable)
+                .map(entidade -> modelMapper.map(entidade, TrilhaDTO.class));
+    }
+
+    public TrilhaDTO cadastrarTrilha(TrilhaDTO dto) {
+        ETrilha entidade = modelMapper.map(dto, ETrilha.class);
+
+        ECategoria categoria = categoriaRepository.findById(dto.getCategoria().getId())
+                .orElseThrow(() -> new EntityNotFoundException("Categoria não encontrada"));
+        entidade.setCategoria(categoria);
+
+        List<EConquista> conquistas = dto.getConquistas().stream()
+                .map(conquistaDTO -> conquistaRepository.findById(conquistaDTO.getId())
+                        .orElseThrow(() -> new EntityNotFoundException("Conquista não encontrada: " + conquistaDTO.getId())))
+                .toList();
+        entidade.setConquistas(conquistas);
+
+        trilhaRepository.save(entidade);
+        return modelMapper.map(entidade, TrilhaDTO.class);
+    }
+}

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "trilhas")
@@ -26,12 +27,18 @@ public class ETrilha {
     @NotNull
     private String descricao;
 
-    @ManyToOne (optional = false, fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
     private ECategoria categoria;
 
-    @NotNull
-    private ArrayList<EModulo> modulos;
+    @OneToMany(mappedBy = "trilha", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EModulo> modulos = new ArrayList<>();
 
-    @NotNull
-    private ArrayList<EConquista> conquistas;
+    @ManyToMany
+    @JoinTable(
+            name = "trilha_conquista",
+            joinColumns = @JoinColumn(name = "trilha_id"),
+            inverseJoinColumns = @JoinColumn(name = "conquista_id")
+    )
+    private List<EConquista> conquistas = new ArrayList<>();
 }

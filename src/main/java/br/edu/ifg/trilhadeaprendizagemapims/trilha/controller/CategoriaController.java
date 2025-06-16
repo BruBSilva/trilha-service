@@ -20,8 +20,8 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     @GetMapping
-    public Object listarCategorias(@PageableDefault(size = 10) Pageable paginacao) {
-        return categoriaService.listarCategorias(paginacao);
+    public Object listarCategorias(@PageableDefault(size = 10) Pageable pageable) {
+        return categoriaService.listarCategorias(pageable);
     }
 
     @GetMapping("/{id}")

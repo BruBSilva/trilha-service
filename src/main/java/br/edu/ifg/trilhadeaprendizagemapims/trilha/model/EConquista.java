@@ -8,13 +8,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "conquistas")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EConquista {
+public class EConquista implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

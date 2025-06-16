@@ -7,13 +7,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "modulos")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EModulo {
+public class EModulo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,7 +23,8 @@ public class EModulo {
     @NotNull
     private String titulo;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "trilha_id")
     private ETrilha trilha;
 
     @NotNull
