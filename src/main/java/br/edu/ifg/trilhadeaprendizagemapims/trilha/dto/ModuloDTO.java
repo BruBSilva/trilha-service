@@ -8,7 +8,7 @@ import lombok.Setter;
 public class ModuloDTO {
     private Long id;
     private String titulo;
-    private TrilhaDTO trilha;
+    private Long trilhaId;
     private int ordem;
     private String conteudo;
 }

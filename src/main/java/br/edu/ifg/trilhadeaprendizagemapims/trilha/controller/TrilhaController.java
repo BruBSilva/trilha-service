@@ -24,6 +24,12 @@ public class TrilhaController {
         return trilhaService.listarTrilhas(pageable);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<TrilhaDTO> detalharTrilha(@PathVariable Long id) {
+        TrilhaDTO dto = trilhaService.obterTrilhaPorId(id);
+        return ResponseEntity.ok(dto);
+    }
+
     @PostMapping
     public ResponseEntity<TrilhaDTO> cadastrarTrilha(@RequestBody @Valid TrilhaDTO dto, UriComponentsBuilder uriBuilder) {
         TrilhaDTO trilha = trilhaService.cadastrarTrilha(dto);
