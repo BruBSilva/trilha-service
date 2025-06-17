@@ -26,7 +26,7 @@ public class ConquistaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ConquistaDTO> obterConquistaPorId(Long id) {
+    public ResponseEntity<ConquistaDTO> obterConquistaPorId(@PathVariable @NotNull Long id) {
         ConquistaDTO dto = conquistaService.obterConquistaPorId(id);
         return ResponseEntity.ok(dto);
     }

@@ -36,4 +36,16 @@ public class TrilhaController {
         URI uri = uriBuilder.path("/api/trilhas/{id}").buildAndExpand(trilha.getId()).toUri();
         return ResponseEntity.created(uri).body(trilha);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TrilhaDTO> atualizarTrilha(@PathVariable Long id, @RequestBody @Valid TrilhaDTO dto, UriComponentsBuilder uriBuilder) {
+        TrilhaDTO trilha = trilhaService.atualizarTrilha(id, dto);
+        return ResponseEntity.ok(trilha);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarTrilha(@PathVariable Long id) {
+        trilhaService.deletarTrilha(id);
+        return ResponseEntity.noContent().build();
+    }
 }
