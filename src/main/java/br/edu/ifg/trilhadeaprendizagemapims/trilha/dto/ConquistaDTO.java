@@ -11,5 +11,7 @@ public class ConquistaDTO {
     private String nome;
     private String descricao;
     private TipoConquista tipo;
+    private Long moduloId;
+    private Long trilhaId;
     private int xpGanho;
 }

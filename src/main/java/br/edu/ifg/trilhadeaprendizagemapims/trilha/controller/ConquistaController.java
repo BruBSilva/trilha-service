@@ -25,6 +25,11 @@ public class ConquistaController {
         return conquistaService.listarConquistas(pageable);
     }
 
+    @GetMapping({"/t/{tipo}"})
+    public Object obterConquistasPorTipo(@PageableDefault(size = 10) Pageable pageable, @PathVariable String tipo) {
+        return conquistaService.obterConquistasPorTipo(pageable, tipo);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ConquistaDTO> obterConquistaPorId(@PathVariable @NotNull Long id) {
         ConquistaDTO dto = conquistaService.obterConquistaPorId(id);

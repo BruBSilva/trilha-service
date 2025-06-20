@@ -13,8 +13,8 @@ class Trilha {
   -nome: String
   -descricao: String
   -categoria: Categoria
+  -conquista: Conquista
   -modulos: ArrayList<Modulo>
-  -conquistas: ArrayList<Conquista>
 }
 
 ' Classe Modulo
@@ -24,6 +24,7 @@ class Modulo {
   -trilha: Trilha
   -ordem: int
   -conteudo: String
+  -conquista: Conquista
 }
 
 ' Classe Conquista
@@ -37,16 +38,16 @@ class Conquista {
 
 ' Enum para o tipo de conquista
 enum TipoConquista {
-  MODULOS_CONCLUIDOS
-  HORAS_ESTUDADAS
-  CONCLUSAO_TRILHA
-  CONQUISTA_ESPECIAL
+  MODULO_CONCLUIDO
+  TRILHA_CONCLUIDA
+  PROGRESSO
 }
 
 ' Relacionamentos
 Trilha "1" --> "1" Categoria : pertence >
 Trilha "1" --> "0..*" Modulo : contém >
-Trilha "1" --> "0..*" Conquista : contém >
+Trilha "0..1" --> "0..1" Conquista : contém >
+Modulo "0..1" --> "0..1" Conquista : contém >
 Modulo "1" --> "1" Trilha : pertence >
 
 @enduml

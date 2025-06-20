@@ -4,10 +4,9 @@ import lombok.Getter;
 
 @Getter
 public enum TipoConquista {
-    MODULOS_CONCLUIDOS("Conclusão do Módulos"),
-    HORAS_ESTUDADAS("Horas Estudadas"),
-    CONCLUSAO_TRILHA("Conclusão da Trilha"),
-    CONQUISTA_ESPECIAL("Conquista Especial");
+    MODULO("Conclusão do Módulo"),
+    TRILHA("Conclusão da Trilha"),
+    GERAL("Conquista Geral");
 
     private final String descricao;
 

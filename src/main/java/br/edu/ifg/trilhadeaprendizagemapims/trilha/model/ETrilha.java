@@ -34,11 +34,7 @@ public class ETrilha {
     @OneToMany(mappedBy = "trilha", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EModulo> modulos = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "trilha_conquista",
-            joinColumns = @JoinColumn(name = "trilha_id"),
-            inverseJoinColumns = @JoinColumn(name = "conquista_id")
-    )
-    private List<EConquista> conquistas = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "conquista_id", unique = true)
+    private EConquista conquista;
 }

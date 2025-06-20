@@ -13,5 +13,5 @@ public class TrilhaDTO {
     private String descricao;
     private CategoriaDTO categoria;
     private ArrayList<ModuloDTO> modulos;
-    private ArrayList<ConquistaDTO> conquistas;
+    private ConquistaDTO conquista;
 }

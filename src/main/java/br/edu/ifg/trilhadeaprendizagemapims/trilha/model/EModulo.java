@@ -2,6 +2,7 @@ package br.edu.ifg.trilhadeaprendizagemapims.trilha.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,8 +29,14 @@ public class EModulo implements Serializable {
     private ETrilha trilha;
 
     @NotNull
+    @Positive
     private int ordem;
 
     @NotNull
+    @Lob
     private String conteudo;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "conquista_id", unique = true)
+    private EConquista conquista;
 }

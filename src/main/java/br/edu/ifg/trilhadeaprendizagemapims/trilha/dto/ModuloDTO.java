@@ -11,4 +11,5 @@ public class ModuloDTO {
     private Long trilhaId;
     private int ordem;
     private String conteudo;
+    private ConquistaDTO conquista;
 }
