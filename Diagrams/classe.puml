@@ -34,13 +34,15 @@ class Conquista {
   -descricao: String
   -tipo: TipoConquista
   -xpGanho: int
+  -trilhaId: Trilha
+  -moduloId: Modulo
 }
 
 ' Enum para o tipo de conquista
 enum TipoConquista {
-  MODULO_CONCLUIDO
-  TRILHA_CONCLUIDA
-  PROGRESSO
+  MODULO
+  TRILHA
+  GERAL
 }
 
 ' Relacionamentos
