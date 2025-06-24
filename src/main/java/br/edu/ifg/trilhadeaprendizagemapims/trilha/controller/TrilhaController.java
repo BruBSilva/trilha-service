@@ -1,5 +1,6 @@
 package br.edu.ifg.trilhadeaprendizagemapims.trilha.controller;
 
+import br.edu.ifg.trilhadeaprendizagemapims.trilha.dto.ConquistaDetalhadaDTO;
 import br.edu.ifg.trilhadeaprendizagemapims.trilha.dto.TrilhaDTO;
 import br.edu.ifg.trilhadeaprendizagemapims.trilha.services.TrilhaService;
 import jakarta.validation.Valid;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/trilhas")
@@ -47,5 +49,25 @@ public class TrilhaController {
     public ResponseEntity<Void> deletarTrilha(@PathVariable Long id) {
         trilhaService.deletarTrilha(id);
         return ResponseEntity.noContent().build();
+    }
+
+    //Usados no serviço learning
+
+    @GetMapping("/{trilha_id}/modulos-ids")
+    public ResponseEntity<List<Long>> listarIdsDosModulos(@PathVariable Long trilha_id) {
+        List<Long> modulos = trilhaService.getModulosIds(trilha_id);
+        return ResponseEntity.ok(modulos);
+    }
+
+    @GetMapping("/{trilha_id}/trilha-conquista-detalhada")
+    public ResponseEntity<ConquistaDetalhadaDTO> obterConquistaDaTrilha(@PathVariable Long trilha_id) {
+        ConquistaDetalhadaDTO dto = trilhaService.obterConquistaPorTrilhaId(trilha_id);
+        return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/modulo-conquista-detalhada/{modulo_id}")
+    public ResponseEntity<ConquistaDetalhadaDTO> obterConquistaDoModulo(@PathVariable Long modulo_id) {
+        ConquistaDetalhadaDTO dto = trilhaService.obterConquistaPorModuloId(modulo_id);
+        return ResponseEntity.ok(dto);
     }
 }

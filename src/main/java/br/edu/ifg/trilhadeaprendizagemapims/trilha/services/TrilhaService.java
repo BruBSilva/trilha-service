@@ -1,5 +1,7 @@
 package br.edu.ifg.trilhadeaprendizagemapims.trilha.services;
 
+import br.edu.ifg.trilhadeaprendizagemapims.trilha.dto.ConquistaDTO;
+import br.edu.ifg.trilhadeaprendizagemapims.trilha.dto.ConquistaDetalhadaDTO;
 import br.edu.ifg.trilhadeaprendizagemapims.trilha.dto.ModuloDTO;
 import br.edu.ifg.trilhadeaprendizagemapims.trilha.dto.TrilhaDTO;
 import br.edu.ifg.trilhadeaprendizagemapims.trilha.model.ECategoria;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class TrilhaService {
@@ -118,4 +121,30 @@ public class TrilhaService {
                 .orElseThrow(() -> new EntityNotFoundException("Trilha não encontrada"));
         trilhaRepository.delete(entidade);
     }
+
+    @Transactional
+    public List<Long> getModulosIds(Long id) {
+        ETrilha entidade = trilhaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Trilha não encontrada"));
+        return entidade.getModulos().stream().map(EModulo::getId).collect(Collectors.toList());
+    }
+
+    public ConquistaDetalhadaDTO obterConquistaPorTrilhaId(Long id){
+        ETrilha entidade = trilhaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Trilha não encontrada"));
+        ConquistaDetalhadaDTO dto = modelMapper.map(entidade.getConquista(), ConquistaDetalhadaDTO.class);
+        dto.setTrilha_nome(entidade.getNome());
+
+        return dto;
+    }
+
+    public ConquistaDetalhadaDTO obterConquistaPorModuloId(Long id){
+        EModulo entidade = moduloRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Módulo não encontrado"));
+        ConquistaDetalhadaDTO dto = modelMapper.map(entidade.getConquista(), ConquistaDetalhadaDTO.class);
+        dto.setModulo_nome(entidade.getTitulo());
+
+        return dto;
+    }
+
 }
