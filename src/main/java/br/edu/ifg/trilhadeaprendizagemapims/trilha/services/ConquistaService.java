@@ -28,7 +28,7 @@ public class ConquistaService {
     }
 
     public ConquistaDTO obterConquistaPorId(Long id){
-        return modelMapper.map(conquistaRepository.findById(id).orElseThrow(() -> new RuntimeException("Conquista não encontrada")), ConquistaDTO.class);
+        return modelMapper.map(conquistaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Conquista não encontrada")), ConquistaDTO.class);
     }
 
     public Page<ConquistaDTO> obterConquistasPorTipo(Pageable pageable, String tipo){
@@ -55,7 +55,7 @@ public class ConquistaService {
     }
 
     public ConquistaDTO atualizarConquista(Long id, ConquistaDTO dto) {
-        EConquista entidade = conquistaRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        EConquista entidade = conquistaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
         modelMapper.map(dto, entidade);
         conquistaRepository.save(entidade);
         return modelMapper.map(entidade, ConquistaDTO.class);

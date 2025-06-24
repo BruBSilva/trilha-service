@@ -25,7 +25,7 @@ public class CategoriaService {
     }
 
     public CategoriaDTO obterCategoriaPorId(Long id){
-        return modelMapper.map(categoriaRepository.findById(id).orElseThrow(() -> new RuntimeException("Categoria não encontrada")), CategoriaDTO.class);
+        return modelMapper.map(categoriaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Categoria não encontrada")), CategoriaDTO.class);
     }
 
     public CategoriaDTO cadastrarCategoria(CategoriaDTO dto) {

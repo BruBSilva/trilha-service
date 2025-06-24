@@ -1,8 +1,8 @@
 package br.edu.ifg.trilhadeaprendizagemapims.trilha.controller;
 
 import br.edu.ifg.trilhadeaprendizagemapims.trilha.dto.CategoriaDTO;
-import br.edu.ifg.trilhadeaprendizagemapims.trilha.model.ECategoria;
 import br.edu.ifg.trilhadeaprendizagemapims.trilha.services.CategoriaService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -30,6 +31,11 @@ public class CategoriaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CategoriaDTO> detalharCategoria(@PathVariable @NotNull Long id) {
+        try {
+
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoria não encontrada");
+        }
         CategoriaDTO dto = categoriaService.obterCategoriaPorId(id);
         return ResponseEntity.ok(dto);
     }
@@ -54,14 +60,22 @@ public class CategoriaController {
 
     @PutMapping("/{id}")
     public ResponseEntity<CategoriaDTO> atualizarCategoria(@PathVariable @NotNull Long id, @RequestBody CategoriaDTO dto, UriComponentsBuilder uriBuilder) {
-        CategoriaDTO categoria = categoriaService.atualizarCategoria(id, dto);
-        return ResponseEntity.ok(categoria);
+        try {
+            CategoriaDTO categoria = categoriaService.atualizarCategoria(id, dto);
+            return ResponseEntity.ok(categoria);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoria não encontrada");
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarCategoria(@PathVariable @NotNull Long id) {
-        categoriaService.deletarCategoria(id);
-        return ResponseEntity.noContent().build();
+        try {
+            categoriaService.deletarCategoria(id);
+            return ResponseEntity.noContent().build();
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoria não encontrada");
+        }
     }
 
 }
