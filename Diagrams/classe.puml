@@ -51,5 +51,6 @@ Trilha "1" --> "0..*" Modulo : contém >
 Trilha "0..1" --> "0..1" Conquista : contém >
 Modulo "0..1" --> "0..1" Conquista : contém >
 Modulo "1" --> "1" Trilha : pertence >
+Conquista --> TipoConquista
 
 @enduml
