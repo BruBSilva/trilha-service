@@ -19,17 +19,4 @@ public class Configuracao {
         mapper.typeMap(ConquistaDTO.class, EConquista.class).addMappings(m -> m.skip(EConquista::setId));
         return mapper;
     }
-
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins("*")//("http://127.0.0.1:3002")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowedHeaders("*");
-            }
-        };
-    }
 }
