@@ -18,7 +18,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/trilhas")
+@RequestMapping("/trilha")
 public class TrilhaController {
     
     @Autowired

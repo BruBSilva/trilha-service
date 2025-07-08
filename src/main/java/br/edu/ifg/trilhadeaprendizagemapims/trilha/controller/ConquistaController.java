@@ -17,7 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/api/conquistas")
+@RequestMapping("/trilha/conquistas")
 public class ConquistaController {
 
     @Autowired

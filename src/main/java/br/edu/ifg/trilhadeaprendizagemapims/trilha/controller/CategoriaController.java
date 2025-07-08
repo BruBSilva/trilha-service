@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/categorias")
+@RequestMapping("/trilha/categorias")
 public class CategoriaController {
     @Autowired
     private CategoriaService categoriaService;
