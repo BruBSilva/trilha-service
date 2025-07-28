@@ -32,12 +32,11 @@ public class CategoriaController {
     @GetMapping("/{id}")
     public ResponseEntity<CategoriaDTO> detalharCategoria(@PathVariable @NotNull Long id) {
         try {
-
+            CategoriaDTO dto = categoriaService.obterCategoriaPorId(id);
+            return ResponseEntity.ok(dto);
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoria não encontrada");
         }
-        CategoriaDTO dto = categoriaService.obterCategoriaPorId(id);
-        return ResponseEntity.ok(dto);
     }
 
     @PostMapping
