@@ -25,7 +25,7 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     @GetMapping
-    public Object listarCategorias(@PageableDefault(size = 10) Pageable pageable) {
+    public Object listarCategorias(Pageable pageable) {
         return categoriaService.listarCategorias(pageable);
     }
 
