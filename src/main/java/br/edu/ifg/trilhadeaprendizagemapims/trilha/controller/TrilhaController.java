@@ -64,7 +64,7 @@ public class TrilhaController {
     public ResponseEntity<Void> deletarTrilha(@PathVariable Long id) {
         try {
             trilhaService.deletarTrilha(id);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok().build();
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
