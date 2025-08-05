@@ -24,7 +24,7 @@ public class ConquistaController {
     private ConquistaService conquistaService;
 
     @GetMapping
-    public Object listarConquistas(@PageableDefault(size = 10) Pageable pageable) {
+    public Object listarConquistas(@PageableDefault(size = 50) Pageable pageable) {
         return conquistaService.listarConquistas(pageable);
     }
 

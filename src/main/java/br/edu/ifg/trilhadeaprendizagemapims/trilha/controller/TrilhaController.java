@@ -25,7 +25,7 @@ public class TrilhaController {
     private TrilhaService trilhaService;
 
     @GetMapping
-    public Object listarTrilhas(@PageableDefault(size = 10) Pageable pageable) {
+    public Object listarTrilhas(@PageableDefault(size = 50) Pageable pageable) {
         return trilhaService.listarTrilhas(pageable);
     }
 
